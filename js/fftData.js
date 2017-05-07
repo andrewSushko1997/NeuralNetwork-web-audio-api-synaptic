@@ -69,6 +69,28 @@ var hard2Mass = [];
 var dubstepMass = [];
 var dubstep2Mass = [];
 var jazzMass = [];
+//---------------------------------
+var svgHeight = '300';
+var svgWidth = '5000';
+var barPadding = '1';
+
+function createSvg(parent, height, width) {
+    return d3.select(parent).append('svg').attr('height', height).attr('width', width);
+}
+
+var svg = createSvg('.audio-dubstep', svgHeight, svgWidth);
+var svg1 = createSvg('.audio-hard2', svgHeight, svgWidth);
+
+// Create our initial D3 chart.
+svg.selectAll('rect')
+    .data(dubstepFrequency)
+    .enter()
+    .append('rect')
+    .attr('x', function (d, i) {
+        return i * (svgWidth / dubstepFrequency.length);
+    })
+    .attr('width', svgWidth / dubstepFrequency.length - barPadding);
+//----------------------------------------------------------------
 function renderChart() {
     progress = Date.now() - start;
 
@@ -93,11 +115,23 @@ function renderChart() {
             dubstep2Mass[i] = dubstepFrequency2[i]/255;
             jazzMass[i] = jazzFrequency[i]/255;
         }
-
+        svg.selectAll('rect')
+            .data(dubstepFrequency)
+            .attr('y', function(d) {
+                return svgHeight - d;
+            })
+            .attr('height', function(d) {
+                return d;
+            })
+            .attr('fill', function(d) {
+                return 'rgb(0, 0, ' + d + ')';
+            });
 
     }else{
+
         cancelAnimationFrame(globalID);
         console.log(progress + " ");
+
 
 
     }
