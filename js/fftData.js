@@ -79,7 +79,7 @@ function createSvg(parent, height, width) {
 }
 
 var svg = createSvg('.audio-dubstep', svgHeight, svgWidth);
-var svg1 = createSvg('.audio-hard2', svgHeight, svgWidth);
+
 
 // Create our initial D3 chart.
 svg.selectAll('rect')
